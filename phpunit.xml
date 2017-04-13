@@ -1,0 +1,25 @@
+<!--
+  ~ This file is part of the TeamNeustaGmbH/m2t3 package.
+  ~
+  ~ Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+  ~
+  ~ For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+  ~
+  ~ @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
+  -->
+
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="m2t3_elastictypo">
+            <directory>Tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <blacklist>
+            <directory>Tests/</directory>
+        </blacklist>
+        <whitelist processUncoveredFilesFromWhitelist="false" addUncoveredFilesFromWhitelist="false">
+            <directory>Classes/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

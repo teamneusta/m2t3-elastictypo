@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!--
+  ~ This file is part of the TeamNeustaGmbH/m2t3 package.
+  ~
+  ~ Copyright (c) 2017 neusta GmbH | Ein team neusta Unternehmen
+  ~
+  ~ For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
+  ~
+  ~ @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
+  -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for the elastictypo extension in the FRONTEND</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="contentReindex.name">reindex content</label>
+            <label index="contentReindex.description">reindex content for elasticsearch</label>
+        </languageKey>
+    </data>
+</T3locallang>

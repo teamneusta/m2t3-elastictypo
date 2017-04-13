@@ -1,0 +1,21 @@
+config.tx_extbase {
+    persistence{
+        enableAutomaticCacheClearing = 1
+        updateReferenceIndex = 0
+        classes {
+            TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model\Content {
+                mapping {
+                    tableName = tt_content
+                    columns {
+                        uid.mapOnProperty = uid
+                        pid.mapOnProperty = pid
+                        sorting.mapOnProperty = sorting
+                        CType.mapOnProperty = contentType
+                        header.mapOnProperty = header
+                        bodytext.mapOnProperty = bodytext
+                    }
+                }
+            }
+        }
+    }
+}

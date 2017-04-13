@@ -1,0 +1,28 @@
+page_id:
+  type: integer
+page_title:
+  type: string
+  analyzer: english
+page_headlines:
+  type: string
+  analyzer: english
+  store: true
+page_bodytexts:
+  type: string
+  analyzer: english
+  store: true
+page_link:
+  type: string
+  index: not_analyzed
+  store: true
+page_pagetype:
+  type: string
+  index: not_analyzed
+  store: true
+page_screenshot:
+  type: string
+  index: not_analyzed
+  store: true
+page_abstract:
+  type: string
+  analyzer: english

@@ -1,0 +1,20 @@
+content_id:
+  type: integer
+content_title:
+  type: string
+  analyzer: not_analyzed
+  store: true
+content_bodytexts:
+  type: string
+  analyzer: not_analyzed
+  store: true
+content_link:
+  type: string
+  index: not_analyzed
+  store: true
+content_type:
+  type: string
+  index: not_analyzed
+  store: true
+page_id:
+  type: integer
