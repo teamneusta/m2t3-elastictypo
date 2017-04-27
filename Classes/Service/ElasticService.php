@@ -54,6 +54,7 @@ class ElasticService
         return !empty($this->client) ? $this->client : new Client([
             'host' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['host'],
             'port' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['port'],
+            'proxy' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['proxy']
         ]);
     }
 

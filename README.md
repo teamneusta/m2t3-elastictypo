@@ -37,6 +37,7 @@
 ```
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['host'] = 'elasticsearch';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['port'] = 9200;
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['proxy'] = '';
 
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['content']['index'] = 'magentypo';
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['content']['type'] = 'content';
