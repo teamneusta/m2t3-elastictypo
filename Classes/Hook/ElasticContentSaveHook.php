@@ -75,10 +75,10 @@ class ElasticContentSaveHook
     public function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $pObj)
     {
         if ($table === 'tt_content') {
-            if (strpos($id, 'NEW') !== false) {
+            if (strpos((string)$id, 'NEW') !== false) {
                 $id = $pObj->substNEWwithIDs[$id];
             }
-            $currentRecord = $this->typo3Services->backendUtilityGetRecord($table, $id);
+            $currentRecord = $this->typo3Services->backendUtilityGetRecord($table, (int)$id);
 
             if (!empty($currentRecord['header'])) {
                 $contentModel = new ContentDocument();
