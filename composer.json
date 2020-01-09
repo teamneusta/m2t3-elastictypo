@@ -1,8 +1,8 @@
 {
-  "name": "TeamNeustaGmbH/m2t3-elastictypo",
+  "name": "teamneustagmbh/m2t3-elastictypo",
   "type": "typo3-cms-extension",
   "description": "elastictypo",
-  "homepage": "http://www.team-neusta.de/",
+  "homepage": "https://www.team-neusta.de/",
   "license": [
     "BSD-3-Clause"
   ],
@@ -12,10 +12,17 @@
   "authors": [
     {
       "name": "Benjamin Kluge",
-      "email": "b.kluge@neusta.de"
+      "email": "b.kluge@neusta.de",
+      "role": "Developer",
+      "homepage": "https://www.team-neusta.de/"
+    },
+    {
+      "name": "Jan Stockfisch",
+      "email": "j.stockfisch@neusta.de",
+      "role": "Developer",
+      "homepage": "https://www.team-neusta.de/"
     }
   ],
-  "version": "1.0.0",
   "autoload": {
     "psr-4": {
       "TeamNeustaGmbH\\M2T3\\Elastictypo\\": "Classes/"
@@ -23,16 +30,36 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "TeamNeustaGmbH\\M2T3\\Elastictypo\\Tests\\": "Tests/",
-      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+      "TeamNeustaGmbH\\M2T3\\Elastictypo\\Tests\\": "Tests/"
     }
   },
   "require": {
-    "T3G/elasticorn": "^1.1"
+    "php": "7.0.*",
+    "t3g/elasticorn": "^1.1",
+    "typo3/cms-backend": "^8.7",
+    "typo3/cms-extbase": "^8.7"
+  },
+  "require-dev": {
+    "typo3/cms-extensionmanager": "^8.7"
   },
   "extra": {
-    "branch-alias": {
-      "dev-master":"1.0.0-dev"
+    "typo3/cms": {
+      "extension-key": "m2t3_elastictypo",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "app-dir": ".Build",
+      "web-dir": ".Build/web"
     }
+  },
+  "scripts": {
+    "create-extension-directory": "mkdir -p .Build/web/typo3conf/ext",
+    "link-package": "ln -snvf ../../../../. .Build/web/typo3conf/ext/m2t3_elastictypo",
+    "post-update-cmd": [
+      "@create-extension-directory",
+      "@link-package"
+    ]
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
   }
 }
