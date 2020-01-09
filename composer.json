@@ -34,7 +34,7 @@
     }
   },
   "require": {
-    "php": "7.0.*",
+    "php": "~7.0",
     "t3g/elasticorn": "^1.1",
     "typo3/cms-backend": "^8.7",
     "typo3/cms-extbase": "^8.7",
