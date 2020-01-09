@@ -1,4 +1,8 @@
 <?php
+declare(strict_types = 1);
+
+namespace TeamNeustaGmbH\M2T3\Elastictypo\Service;
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,13 +13,10 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types=1);
-
-namespace TeamNeustaGmbH\M2T3\Elastictypo\Service;
-
 use Elastica\Client;
 use Elastica\Document;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\StringUtility;
 
 class ElasticService
 {
@@ -44,14 +45,9 @@ class ElasticService
         $type->getIndex()->refresh();
     }
 
-    /**
-     * getClient
-     *
-     * @return Client
-     */
     public function getClient(): Client
     {
-        return !empty($this->client) ? $this->client : new Client([
+        return $this->client ?: new Client([
             'host' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['host'],
             'port' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['port'],
             'proxy' => $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['proxy']
@@ -82,7 +78,7 @@ class ElasticService
         $getMethods = get_class_methods($documentModel);
         $document = [];
         foreach ($getMethods as $method) {
-            if (substr($method, 0, 3) === 'get') {
+            if (StringUtility::beginsWith($method, 'get')) {
                 $elasticField = substr(GeneralUtility::camelCaseToLowerCaseUnderscored($method), 4);
                 $document[$elasticField] = $documentModel->{$method}();
             }

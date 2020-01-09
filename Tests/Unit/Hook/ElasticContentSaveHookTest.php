@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,11 +11,6 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types = 1);
-/***************************************************************
- *  (c) 2016 Benjamin Kluge <b.kluge@neusta.de>, NEUSTA GmbH
- *  All rights reserved
- ***************************************************************/
 namespace TeamNeustaGmbH\M2T3\Elastictypo\Tests\Unit\Hook;
 
 use Prophecy\Argument;
@@ -21,8 +18,10 @@ use TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model\ContentDocument;
 use TeamNeustaGmbH\M2T3\Elastictypo\Hook\ElasticContentSaveHook;
 use TeamNeustaGmbH\M2T3\Elastictypo\Service\ElasticService;
 use TeamNeustaGmbH\M2T3\Elastictypo\Service\Typo3Service;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class ElasticContentSaveHookTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class ElasticContentSaveHookTest extends UnitTestCase
 {
 
     /**
@@ -55,11 +54,13 @@ class ElasticContentSaveHookTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['content']['index'] = 'typo3';
         $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['m2t3_elastictypo']['content']['type'] = 'content';
+
         $this->elasticContentSaveHook = new ElasticContentSaveHook();
         $this->elasticService = $this->prophesize(ElasticService::class);
-        $this->elasticContentSaveHook->injectElasticService($this->elasticService->reveal());
+        GeneralUtility::addInstance(ElasticService::class, $this->elasticService->reveal());
+
         $this->typo3Service = $this->prophesize(Typo3Service::class);
-        $this->elasticContentSaveHook->injectTypo3Service($this->typo3Service->reveal());
+        GeneralUtility::addInstance(Typo3Service::class, $this->typo3Service->reveal());
     }
 
     /**

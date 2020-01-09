@@ -37,10 +37,13 @@
     "php": "7.0.*",
     "t3g/elasticorn": "^1.1",
     "typo3/cms-backend": "^8.7",
-    "typo3/cms-extbase": "^8.7"
+    "typo3/cms-extbase": "^8.7",
+    "typo3/cms-frontend": "^8.7"
   },
   "require-dev": {
-    "typo3/cms-extensionmanager": "^8.7"
+    "typo3/cms-extensionmanager": "^8.7",
+    "typo3/cms-scheduler": "^8.7",
+    "typo3/testing-framework": "2.0.*"
   },
   "extra": {
     "typo3/cms": {

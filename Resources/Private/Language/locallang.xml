@@ -16,8 +16,8 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="contentReindex.name">reindex content</label>
-            <label index="contentReindex.description">reindex content for elasticsearch</label>
+            <label index="contentReindex.name">Reindex content</label>
+            <label index="contentReindex.description">Reindex content for elasticsearch</label>
         </languageKey>
     </data>
 </T3locallang>

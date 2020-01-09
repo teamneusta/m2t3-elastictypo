@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+namespace TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model;
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -8,10 +12,6 @@
  *
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
-
-declare(strict_types=1);
-
-namespace TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 

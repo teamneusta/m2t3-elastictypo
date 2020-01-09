@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,13 +11,7 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types = 1);
-/***************************************************************
- *  (c) 2016 Benjamin Kluge <b.kluge@neusta.de>, NEUSTA GmbH
- *  All rights reserved
- ***************************************************************/
 namespace TeamNeustaGmbH\M2T3\Elastictypo\Tests\Unit\Task;
-
 
 use Prophecy\Argument;
 use TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model\Content;
@@ -24,7 +20,10 @@ use TeamNeustaGmbH\M2T3\Elastictypo\Domain\Repository\ContentRepository;
 use TeamNeustaGmbH\M2T3\Elastictypo\Service\ElasticService;
 use TeamNeustaGmbH\M2T3\Elastictypo\Service\Typo3Service;
 use TeamNeustaGmbH\M2T3\Elastictypo\Task\ContentReindex;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ContentReindexTest
@@ -32,7 +31,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  * @backupGlobals true
  * @package TeamNeustaGmbH\M2T3\Elastictypo\Tests\Unit\Task
  */
-class ContentReindexTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class ContentReindexTest extends UnitTestCase
 {
     /**
      * contentReindex
@@ -88,7 +87,7 @@ class ContentReindexTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $content->setContentType('someContentType');
         $this->contentRepository->findAll()->willReturn(
             [
-                $content
+                $content,
             ]
         );
 
@@ -98,7 +97,7 @@ class ContentReindexTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
                 [
                     'tables' => 'tt_content',
                     'source' => $content->getUid(),
-                    'dontCheckPid' => 1
+                    'dontCheckPid' => 1,
                 ]
             )
         )->willReturn('<span>some text</span> <p>with tags</p>');
@@ -108,7 +107,7 @@ class ContentReindexTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
                 Argument::exact('typo3'),
                 Argument::exact('content'),
                 Argument::type(ContentDocument::class),
-                Argument::exact('tt_content_'.$content->getUid())
+                Argument::exact('tt_content_' . $content->getUid())
             )
             ->shouldBeCalled();
 
@@ -131,16 +130,18 @@ class ContentReindexTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->elasticService = $this->prophesize(ElasticService::class);
         $this->contentObjectRenderer = $this->prophesize(ContentObjectRenderer::class);
 
-        $this->contentReindex->injectTypo3Service($this->typo3service->reveal());
+        $objectManager = $this->prophesize(ObjectManager::class);
+        $objectManager->get(ContentRepository::class)->willReturn($this->contentRepository->reveal());
+        GeneralUtility::setSingletonInstance(ObjectManager::class, $objectManager->reveal());
 
-        $this->typo3service->objectManagerGet(Argument::exact(ContentRepository::class))->willReturn(
-            $this->contentRepository->reveal()
-        );
-        $this->typo3service->objectManagerGet(Argument::exact(ElasticService::class))->willReturn(
-            $this->elasticService->reveal()
-        );
-        $this->typo3service->objectManagerGet(Argument::exact(ContentObjectRenderer::class))->willReturn(
-            $this->contentObjectRenderer->reveal()
-        );
+        GeneralUtility::addInstance(Typo3Service::class, $this->typo3service->reveal());
+        GeneralUtility::addInstance(ElasticService::class, $this->elasticService->reveal());
+        GeneralUtility::addInstance(ContentObjectRenderer::class, $this->contentObjectRenderer->reveal());
+    }
+
+    protected function tearDown()
+    {
+        GeneralUtility::purgeInstances();
+        parent::tearDown();
     }
 }

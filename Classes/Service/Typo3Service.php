@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,14 +11,11 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types=1);
-
 namespace TeamNeustaGmbH\M2T3\Elastictypo\Service;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
@@ -28,7 +27,6 @@ use TYPO3\CMS\Frontend\Utility\EidUtility;
  */
 class Typo3Service
 {
-
     /**
      * Gets record with uid = $uid from $table
      * You can set $field to a list of fields (default is '*')
@@ -50,21 +48,7 @@ class Typo3Service
         string $where = '',
         bool $useDeleteClause = true
     ) {
-        return BackendUtility::getRecord($table, $uid);
-    }
-
-    /**
-     * objectManagerGet
-     *
-     * @param string $class
-     * @return object
-     */
-    public function objectManagerGet(string $class)
-    {
-        /** @var ObjectManager $objectManager */
-        $objectManager = $this->generalUtilityMakeInstance(ObjectManager::class);
-
-        return $objectManager->get($class);
+        return BackendUtility::getRecord($table, $uid, $fields, $where, $useDeleteClause);
     }
 
     /**
@@ -92,7 +76,7 @@ class Typo3Service
     }
 
     /**
-     * initTSFE
+     * Initialize frontend rendering
      *
      * @param int $id
      * @param int $typeNum
@@ -102,7 +86,7 @@ class Typo3Service
     {
         $this->eidUtilityInitTCA();
         if (!is_object($GLOBALS['TT'])) {
-            $GLOBALS['TT'] = new NullTimeTracker();
+            $GLOBALS['TT'] = new TimeTracker();
             $GLOBALS['TT']->start();
         }
         $GLOBALS['TSFE'] = $this->generalUtilityMakeInstance(

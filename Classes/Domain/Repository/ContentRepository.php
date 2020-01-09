@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+namespace TeamNeustaGmbH\M2T3\Elastictypo\Domain\Repository;
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,10 +13,7 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types=1);
-
-namespace TeamNeustaGmbH\M2T3\Elastictypo\Domain\Repository;
-
+use TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model\Content;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
@@ -28,7 +29,7 @@ class ContentRepository extends Repository
     /**
      * findAll
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return Content[]|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findAll()
     {

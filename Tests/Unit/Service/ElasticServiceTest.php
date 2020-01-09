@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1);
+
 /**
  * This file is part of the TeamNeustaGmbH/m2t3 package.
  *
@@ -9,13 +11,7 @@
  * @license https://opensource.org/licenses/BSD-3-Clause  BSD-3-Clause License
  */
 
-declare(strict_types = 1);
-/***************************************************************
- *  (c) 2016 Benjamin Kluge <b.kluge@neusta.de>, NEUSTA GmbH
- *  All rights reserved
- ***************************************************************/
 namespace TeamNeustaGmbH\M2T3\Elastictypo\Tests\Unit\Hook;
-
 
 use Elastica\Client;
 use Elastica\Document;
@@ -24,8 +20,9 @@ use Elastica\Type;
 use Prophecy\Argument;
 use TeamNeustaGmbH\M2T3\Elastictypo\Domain\Model\ContentDocument;
 use TeamNeustaGmbH\M2T3\Elastictypo\Service\ElasticService;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class ElasticServiceTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class ElasticServiceTest extends UnitTestCase
 {
 
     /**
